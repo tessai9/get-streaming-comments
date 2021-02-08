@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dotenv (2.7.6)
+    faraday (1.1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords
+    multipart-post (2.1.1)
+    ruby2_keywords (0.0.2)
+    string-similarity (2.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dotenv (~> 2.7, >= 2.7.6)
+  faraday (~> 1.1)
+  string-similarity (~> 2.1)
+
+BUNDLED WITH
+   2.1.4
