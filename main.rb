@@ -39,7 +39,7 @@ f = File.new("./tmp/comments_#{video_id}_#{Time.now.strftime('%Y%m%d_%H%M%S')}.c
 # Get comments from the streaming
 pageToken = 1
 nextPageToken = nil
-offlinedAt = nil
+offlineAt = nil
 
 params_for_streaming = {
   :part => "id,snippet,authorDetails",
@@ -47,37 +47,33 @@ params_for_streaming = {
   :key => API_KEY,
 }
 
-while offlinedAt.nil?
-  output = []
-  begin
-
+begin
+  while offlineAt.nil?
     # Get data from streaming
     resp_from_liveChat = Faraday.get("#{YOUTUBE_API_URI}#{API_PATH[:streaming]}", params_for_streaming)
 
     res_body = JSON.parse(resp_from_liveChat.body, symbolize_names: true)
     comments = res_body[:items]
+    offlineAt = res_body[:offlineAt]
+
     comments.each do |chat|
       snippet = chat[:snippet]
       row = CSV.generate_line([
-                          snippet[:publishedAt],
-                          snippet[:authorChannelId],
-                          snippet[:displayMessage],
-                        ])
+                                snippet[:publishedAt],
+                                snippet[:authorChannelId],
+                                snippet[:displayMessage],
+                              ])
       f.puts row
     end
 
     params_for_streaming[:nextPageToken] = res_body[:nextPageToken]
 
     sleep res_body[:pollingIntervalMillis] / 1000
-  rescue Interrupt
-    f.close
-    puts "bye"
-    break
-  rescue
-    f.close
-    puts "Program exited by unexpected error"
-    break
   end
+rescue Interrupt
+  puts "bye"
+rescue
+  puts "Program exited by unexpected error"
+ensure
+  f.close
 end
-
-f.close
