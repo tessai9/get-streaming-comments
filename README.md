@@ -23,7 +23,7 @@ This script gets comments from youtube streaming, and exports as csv.
     $ bundle exec ruby main.rb ruXX7vJQbmk
     ```
 1. Script automatically ends when the streaming is finished.
-1. Comments are exported as csv to `tmp` directory which name is `comments_(Video ID)_(YYYYMMDD_His).csv`
+1. Comments are exported as csv which name is `comments_(Video ID)_(YYYYMMDD_His).csv` to `tmp` directory
 
 ## Note
 
