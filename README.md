@@ -16,7 +16,9 @@ This script gets comments from youtube streaming, and exports as csv.
 
 1. Run `bundle install`
 1. Get Video ID of the streaming from URL
+
     When the URL is `https://www.youtube.com/watch?v=ruXX7vJQbmk`, Video ID is `ruXX7vJQbmk`
+
 1. Run this script with the Video ID
     ```
     # When the video ID is ruXX7vJQbmk
